@@ -1,79 +1,82 @@
+import json
 from datetime import datetime
-
-from core.config import settings
-from core.utils import load_json, save_json
+from pathlib import Path
 
 
 class MemoryService:
 
     def __init__(self):
+        self.memory_file = Path("storage/memory.json")
 
-        self.profile_db = settings.PROFILE_MEMORY
+        if not self.memory_file.exists():
+            self.memory_file.write_text("{}")
 
-        self.session_db = settings.SESSION_MEMORY
+    def _load(self):
+        with open(self.memory_file, "r") as f:
+            return json.load(f)
 
-        self.summary_db = settings.SUMMARY_MEMORY
+    def _save(self, data):
+        with open(self.memory_file, "w") as f:
+            json.dump(data, f, indent=4)
 
-    def get_profile(self, username):
+    def get_user(self, username):
+        data = self._load()
+        return data.get(username)
 
-        profiles = load_json(self.profile_db)
+    def create_user(self, username):
 
-        return profiles.get(username)
+        data = self._load()
 
-    def create_profile(self, username):
+        if username not in data:
 
-        profiles = load_json(self.profile_db)
-
-        if username not in profiles:
-
-            profiles[username] = {
-
-                "name": username,
-
-                "created_at": datetime.now().isoformat(),
-
-                "last_seen": datetime.now().isoformat(),
-
-                "preferences": {},
-
-                "summary": ""
-
+            data[username] = {
+                "profile": {
+                    "name": username,
+                    "email": "",
+                    "company": ""
+                },
+                "history": [],
+                "summary": "",
+                "last_seen": ""
             }
 
-            save_json(self.profile_db, profiles)
+            self._save(data)
 
-        return profiles[username]
+        return data[username]
 
-    def update_last_seen(self, username):
+    def get_history(self, username):
 
-        profiles = load_json(self.profile_db)
+        data = self._load()
 
-        if username in profiles:
+        if username not in data:
+            return []
 
-            profiles[username]["last_seen"] = datetime.now().isoformat()
+        return data[username]["history"]
 
-            save_json(self.profile_db, profiles)
+    def add_message(self, username, role, message):
 
-    def add_message(self, session_id, role, message):
+        data = self._load()
 
-        sessions = load_json(self.session_db)
+        if username not in data:
+            self.create_user(username)
+            data = self._load()
 
-        sessions.setdefault(session_id, [])
+        data[username]["history"].append(
+            {
+                "role": role,
+                "content": message,
+                "timestamp": datetime.now().isoformat()
+            }
+        )
 
-        sessions[session_id].append({
+        data[username]["last_seen"] = datetime.now().isoformat()
 
-            "role": role,
+        self._save(data)
 
-            "content": message,
+    def update_summary(self, username, summary):
 
-            "time": datetime.now().isoformat()
+        data = self._load()
 
-        })
+        data[username]["summary"] = summary
 
-        save_json(self.session_db, sessions)
-
-    def get_history(self, session_id):
-
-        sessions = load_json(self.session_db)
-
-        return sessions.get(session_id, [])
+        self._save(data)
