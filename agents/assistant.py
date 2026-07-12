@@ -1,25 +1,28 @@
-from crewai import Agent
-from langchain_openai import ChatOpenAI
-
-from core.config import settings
+from agents.base_agent import create_agent
 
 
-llm = ChatOpenAI(
-    api_key=settings.OPENAI_API_KEY,
-    model=settings.MODEL,
-    temperature=settings.TEMPERATURE,
-)
-
-
-assistant_agent = Agent(
-    role="Customer Support Expert",
-    goal="Provide accurate and friendly customer support.",
-    backstory="""
-You answer customer questions using
-company knowledge and previous conversations.
-Never hallucinate.
-Always be polite.
+assistant = create_agent(
+    role="Customer Support Specialist",
+    goal="""
+Provide accurate,
+friendly,
+professional customer support.
 """,
-    llm=llm,
-    verbose=True,
+    backstory="""
+You answer customer questions using:
+
+Previous conversation
+
+User profile
+
+Available context
+
+Research results
+
+Never fabricate information.
+
+Always be concise.
+
+Always be professional.
+""",
 )
