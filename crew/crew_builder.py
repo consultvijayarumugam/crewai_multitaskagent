@@ -1,4 +1,8 @@
-from crewai import Crew
+from crewai import Crew, Process
+
+from agents.coordinator import coordinator
+from agents.assistant import assistant
+from agents.researcher import researcher
 
 from tasks.coordinator_task import build_coordinator_task
 from tasks.assistant_task import build_assistant_task
@@ -7,52 +11,30 @@ from tasks.research_task import build_research_task
 
 class CrewBuilder:
 
-    def build(
+    def build(self, question: str, history: list):
 
-        self,
+        coordinator_task = build_coordinator_task(question)
 
-        question,
+        research_task = build_research_task(question)
 
-        memory
-
-    ):
-
-        coordinator = build_coordinator_task(question)
-
-        researcher = build_research_task(question)
-
-        assistant = build_assistant_task(
-
-            question,
-
-            memory,
-
-            researcher
-
+        assistant_task = build_assistant_task(
+            question=question,
+            history=history
         )
 
-        return Crew(
-
+        crew = Crew(
             agents=[
-
-                coordinator.agent,
-
-                researcher.agent,
-
-                assistant.agent
-
-            ],
-
-            tasks=[
-
                 coordinator,
-
                 researcher,
-
                 assistant
-
             ],
-
+            tasks=[
+                coordinator_task,
+                research_task,
+                assistant_task
+            ],
+            process=Process.sequential,
             verbose=True
-
         )
+
+        return crew

@@ -1,5 +1,4 @@
 from crew.crew_builder import CrewBuilder
-
 from services.memory_service import MemoryService
 
 
@@ -9,32 +8,21 @@ class ChatService:
 
         self.memory = MemoryService()
 
-        self.crew = CrewBuilder()
+        self.crew_builder = CrewBuilder()
 
-    def chat(
+    def ask(self, username: str, question: str):
 
-            self,
+        user = self.memory.get_user(username)
 
-            username,
+        if not user:
 
-            question
-
-    ):
-
-        profile = self.memory.get_profile(username)
-
-        if not profile:
-
-            profile = self.memory.create_profile(username)
+            self.memory.create_user(username)
 
         history = self.memory.get_history(username)
 
-        crew = self.crew.build(
-
+        crew = self.crew_builder.build(
             question=question,
-
-            memory=history
-
+            history=history
         )
 
         result = crew.kickoff()
@@ -42,25 +30,15 @@ class ChatService:
         answer = str(result)
 
         self.memory.add_message(
-
             username,
-
             "user",
-
             question
-
         )
 
         self.memory.add_message(
-
             username,
-
             "assistant",
-
             answer
-
         )
-
-        self.memory.update_last_seen(username)
 
         return answer

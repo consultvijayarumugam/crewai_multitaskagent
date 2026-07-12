@@ -3,37 +3,30 @@ from crewai import Task
 from agents.assistant import assistant
 
 
-def build_assistant_task(
-
-        question,
-
-        memory,
-
-        research
-
-):
+def build_assistant_task(question: str, history: list):
 
     return Task(
 
         description=f"""
-Customer Question
+Customer Question:
 
 {question}
 
-Customer Memory
+Conversation History:
 
-{memory}
+{history}
 
-Research
+Using the available context,
+generate the best possible customer support response.
 
-{research}
+If previous conversations are useful,
+use them naturally.
 
-Generate the best customer support response.
-
+Be concise, accurate and professional.
 """,
 
         expected_output="""
-Helpful customer support response.
+Final response for the customer.
 """,
 
         agent=assistant

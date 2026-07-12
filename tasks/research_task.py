@@ -3,23 +3,22 @@ from crewai import Task
 from agents.researcher import researcher
 
 
-def build_research_task(question):
+def build_research_task(question: str):
 
     return Task(
 
         description=f"""
-Research the following question.
+Research the following question if external information is needed.
 
-Question
+Question:
 
 {question}
 
-Return concise findings.
-
+Provide concise, reliable findings.
 """,
 
         expected_output="""
-Verified research summary.
+Research summary.
 """,
 
         agent=researcher

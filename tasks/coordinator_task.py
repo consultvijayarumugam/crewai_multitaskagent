@@ -8,24 +8,23 @@ def build_coordinator_task(question: str):
     return Task(
 
         description=f"""
-Understand the customer request.
+You are responsible for understanding the customer's intent.
 
 Customer Question:
 
 {question}
 
-Decide:
+Identify:
 
-1. Can memory answer?
+- Customer intent
+- Whether research is required
+- Any important context
 
-2. Should the assistant answer?
-
-3. Is web research required?
-
+Return only your analysis.
 """,
 
         expected_output="""
-Decision regarding how the request should be handled.
+Intent analysis and routing decision.
 """,
 
         agent=coordinator
