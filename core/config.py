@@ -1,20 +1,20 @@
-"""
-Application Configuration
-Loads environment variables.
-"""
-
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
 
-class Config:
+class Settings:
+
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-    @staticmethod
-    def validate():
-        if not Config.OPENAI_API_KEY:
-            raise ValueError(
-                "OPENAI_API_KEY not found. Please configure your .env file."
-            )
+    MODEL = "gpt-4.1-mini"
+
+    TEMPERATURE = 0.2
+
+    MEMORY_FILE = "storage/memory.json"
+
+    ANSWER_FILE = "storage/answers.txt"
+
+
+settings = Settings()

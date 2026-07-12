@@ -1,56 +1,33 @@
-"""
-Persistent Memory Manager
-"""
-
-import json
-from pathlib import Path
-from datetime import datetime
-
-MEMORY_FILE = Path("storage/memory.json")
+from core.config import settings
+from core.utils import load_json, save_json
 
 
-class MemoryManager:
+class Memory:
 
-    @staticmethod
-    def load():
+    def __init__(self):
 
-        if not MEMORY_FILE.exists():
-            return {}
+        self.path = settings.MEMORY_FILE
 
-        with open(MEMORY_FILE, "r", encoding="utf-8") as file:
-            return json.load(file)
+        self.memory = load_json(self.path)
 
-    @staticmethod
-    def save(memory: dict):
+    def get_user(self, user):
 
-        memory["metadata"]["last_updated"] = datetime.now().isoformat()
+        return self.memory.get(user, {})
 
-        with open(MEMORY_FILE, "w", encoding="utf-8") as file:
-            json.dump(memory, file, indent=4)
+    def update(self, user, question, answer):
 
-    @staticmethod
-    def add_chat(question: str, answer: str):
+        if user not in self.memory:
 
-        memory = MemoryManager.load()
-
-        memory.setdefault("chat_history", [])
-
-        memory["chat_history"].append(
-            {
-                "question": question,
-                "answer": answer,
+            self.memory[user] = {
+                "history": []
             }
-        )
 
-        MemoryManager.save(memory)
+        self.memory[user]["history"].append({
 
-    @staticmethod
-    def update_user(key: str, value: str):
+            "question": question,
 
-        memory = MemoryManager.load()
+            "answer": answer
 
-        memory.setdefault("user", {})
+        })
 
-        memory["user"][key] = value
-
-        MemoryManager.save(memory)
+        save_json(self.path, self.memory)
