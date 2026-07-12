@@ -12,7 +12,11 @@ class Settings:
 
     TEMPERATURE = 0.2
 
-    MEMORY_FILE = "storage/memory.json"
+    PROFILE_MEMORY = "storage/memory/profiles.json"
+
+    SESSION_MEMORY = "storage/memory/sessions.json"
+
+    SUMMARY_MEMORY = "storage/memory/summaries.json"
 
     ANSWER_FILE = "storage/answers.txt"
 
