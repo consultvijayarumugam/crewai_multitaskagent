@@ -2,59 +2,105 @@ import streamlit as st
 
 from services.chat_service import ChatService
 
+from components.header.header import render_header
+from components.common.sidebar import render_sidebar
+from components.dashboard.dashboard import render_dashboard
+from components.chat.chat_window import render_chat
+
+
+# ==========================================================
+# PAGE CONFIG
+# ==========================================================
+
 st.set_page_config(
-    page_title="Customer Support AI",
+    page_title="AI Customer Support Portal",
     page_icon="🤖",
     layout="wide"
 )
 
-st.title("🤖 Customer Support AI")
+# ==========================================================
+# SESSION STATE
+# ==========================================================
 
-st.write(
-    "Multi-Agent Customer Support System powered by CrewAI"
-)
+if "username" not in st.session_state:
+    st.session_state.username = "vijay"
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+if "questions" not in st.session_state:
+    st.session_state.questions = 0
+
+if "research_calls" not in st.session_state:
+    st.session_state.research_calls = 0
+
+if "memory_updates" not in st.session_state:
+    st.session_state.memory_updates = 0
+
+if "avg_time" not in st.session_state:
+    st.session_state.avg_time = 0.0
+
+# ==========================================================
+# SERVICES
+# ==========================================================
 
 chat_service = ChatService()
 
-username = st.text_input(
-    "Username",
-    value="Vijay"
-)
+# ==========================================================
+# SIDEBAR
+# ==========================================================
 
-question = st.text_area(
-    "Ask your question"
-)
+render_sidebar()
 
-if st.button("Submit"):
+# ==========================================================
+# HEADER
+# ==========================================================
 
-    if question.strip() == "":
+render_header()
 
-        st.warning("Please enter your question.")
+# ==========================================================
+# DASHBOARD
+# ==========================================================
 
-    else:
+render_dashboard()
 
-        with st.spinner("Agents are working..."):
+# ==========================================================
+# CHAT
+# ==========================================================
 
-            result = chat_service.ask(
-                username,
-                question
-            )
+prompt = render_chat(st.session_state.messages)
 
-        st.success("Conversation Completed")
+# ==========================================================
+# HANDLE MESSAGE
+# ==========================================================
 
-        st.subheader("🤖 Assistant Answer")
+if prompt:
 
-        st.write(
-            result["assistant"]
+    # Show User Message
+
+    st.session_state.messages.append(
+        {
+            "role": "user",
+            "content": prompt
+        }
+    )
+
+    # AI Thinking
+
+    with st.spinner("🤖 AI Agents are working..."):
+
+        result = chat_service.ask(
+            st.session_state.username,
+            prompt
         )
 
-        st.subheader("🌐 Web Verified Answer")
+    # Show AI Response
 
-        st.write(
-            result["research"]
-        )
+    st.session_state.messages.append(
+        {
+            "role": "assistant",
+            "content": result["research"]
+        }
+    )
 
-        st.metric(
-            "Execution Time",
-            f'{result["execution_time"]} sec'
-        )
+    st.rerun()

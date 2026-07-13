@@ -1,23 +1,13 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Virtual Environment
 venv/
-
-# Environment
 .env
+__pycache__/
+*.pyc
 
-# IDE
-.vscode/
-.idea/
-
-# macOS
-.DS_Store
-
-# Memory
 storage/memory.json
+storage/answers.txt
 
-# Logs
-*.log
+.DS_Store
+.idea/
+.vscode/
+
+*.zip

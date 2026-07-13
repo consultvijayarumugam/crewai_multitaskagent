@@ -14,58 +14,57 @@ class CrewBuilder:
     @staticmethod
     def build(
         question: str,
-        context: str
+        context: str,
+        use_research: bool = True
     ):
 
-        # ----------------------------
-        # Assistant Task
-        # ----------------------------
-
         assistant_task = build_assistant_task(
-            question=question,
-            context=context
+            question,
+            context
         )
 
-        # ----------------------------
-        # Research Task
-        # ----------------------------
+        tasks = [assistant_task]
 
-        research_task = build_research_task(
-            question=question
-        )
+        if use_research:
 
-        research_task.context = [
-            assistant_task
+            research_task = build_research_task(question)
+            research_task.context = [assistant_task]
+
+            tasks.append(research_task)
+
+            entry_task = build_entry_task()
+            entry_task.context = [
+                assistant_task,
+                research_task
+            ]
+
+        else:
+
+            entry_task = build_entry_task()
+            entry_task.context = [
+                assistant_task
+            ]
+
+        tasks.append(entry_task)
+
+        agents = [
+            assistant,
+            entry_agent
         ]
 
-        # ----------------------------
-        # Entry Task
-        # ----------------------------
+        if use_research:
 
-        entry_task = build_entry_task()
-
-        entry_task.context = [
-            assistant_task,
-            research_task
-        ]
-
-        # ----------------------------
-        # Crew
-        # ----------------------------
-
-        return Crew(
-
-            agents=[
+            agents = [
                 assistant,
                 researcher,
                 entry_agent
-            ],
+            ]
 
-            tasks=[
-                assistant_task,
-                research_task,
-                entry_task
-            ],
+        return Crew(
+
+            agents=agents,
+
+            tasks=tasks,
 
             process=Process.sequential,
 

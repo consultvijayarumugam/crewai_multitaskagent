@@ -278,3 +278,129 @@ This list is based on recent launches and expert ratings from Indian tech review
 
 ======================================================================
 
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 12:57:45 PM
+User : vijay
+
+Question
+hi , what's my name?
+
+Assistant Answer
+Your name is Vijay, as you have shared earlier in our conversation. If you need any further assistance, please feel free to ask. I’m here to help!
+
+Web Search Answer
+Your name is Vijay, as you have shared earlier in our conversation. If you need any further assistance, please feel free to ask. I’m here to help!
+
+======================================================================
+
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 12:59:47 PM
+User : vijay
+
+Question
+Search in the google and let me know who's the founder of social eagle and his brief
+
+Assistant Answer
+Vijay, I currently do not have information about the founder of Social Eagle or a brief about him in my knowledge base. If you have any other questions or need assistance with something related to your business, Make market, or any other topic, please feel free to ask. I’m here to help!
+
+Web Search Answer
+Social Eagle is an unfunded company based in Chennai, India, founded in 2015 by Dharaneetharan G D and Vishnuhari Harikumar. The company operates as a provider of digital marketing and education-led ecosystem services, supporting thousands of Tamil founders, professionals, and students. Dharaneetharan G D and Vishnuhari Harikumar have been instrumental in building and leading Social Eagle, focusing on digital marketing and community growth in Tamil Nadu.
+
+======================================================================
+
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 01:33:11 PM
+User : vijay
+
+Question
+Hi
+
+Assistant Answer
+Hello Vijay! How can I assist you today? If you have any questions or need support related to Make market or anything else, please feel free to ask. I’m here to help!
+
+Web Search Answer
+Hello Vijay! How can I assist you today? If you have any questions or need support related to Make market or anything else, please feel free to ask. I’m here to help!
+
+======================================================================
+
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 01:34:12 PM
+User : vijay
+
+Question
+what's my name
+
+Assistant Answer
+Your name is Vijay, as you have shared earlier in our conversation. If you need any further assistance, please feel free to ask. I’m here to help!
+
+Web Search Answer
+Your name is Vijay, as you have shared earlier in our conversation. If you need any further assistance, please feel free to ask. I’m here to help!
+
+======================================================================
+
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 07:42:26 PM
+User : vijay
+
+Question
+Hi 
+
+Assistant Answer
+Error : litellm.AuthenticationError: AuthenticationError: OpenAIException - Incorrect API key provided: sk-proj-************************************************************************************************************************************************************clea. You can find your API key at https://platform.openai.com/account/api-keys.
+
+Web Search Answer
+Error : litellm.AuthenticationError: AuthenticationError: OpenAIException - Incorrect API key provided: sk-proj-************************************************************************************************************************************************************clea. You can find your API key at https://platform.openai.com/account/api-keys.
+
+======================================================================
+
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 08:01:37 PM
+User : vijay
+
+Question
+Hello
+
+Assistant Answer
+Hello Vijay! How can I assist you today? If you have any questions or need support related to Make market or anything else, please feel free to ask. I’m here to help!
+
+Web Search Answer
+Hello Vijay! How can I assist you today? If you have any questions or need support related to Make market or anything else, please feel free to ask. I’m here to help!
+
+======================================================================
+
+======================================================================
+Customer Support AI
+======================================================================
+
+Date : 13-07-2026 08:01:47 PM
+User : vijay
+
+Question
+What's my name
+
+Assistant Answer
+Your name is Vijay, as you have shared earlier in our conversation. If you need any further assistance, please feel free to ask. I’m here to help!
+
+Web Search Answer
+Your name is Vijay, as you have shared earlier in our conversation. If you need any further assistance, please feel free to ask. I’m here to help!
+
+======================================================================
+
