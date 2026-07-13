@@ -1,10 +1,14 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
 
 class Settings:
+
+    # ----------------------------------------
+    # OpenAI
+    # ----------------------------------------
 
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
@@ -12,11 +16,19 @@ class Settings:
 
     TEMPERATURE = 0.2
 
-    PROFILE_MEMORY = "storage/memory/profiles.json"
+    MAX_ITERATIONS = 3
 
-    SESSION_MEMORY = "storage/memory/sessions.json"
+    # ----------------------------------------
+    # Application
+    # ----------------------------------------
 
-    SUMMARY_MEMORY = "storage/memory/summaries.json"
+    APP_NAME = "Customer Support AI"
+
+    # ----------------------------------------
+    # Storage
+    # ----------------------------------------
+
+    MEMORY_FILE = "storage/memory.json"
 
     ANSWER_FILE = "storage/answers.txt"
 

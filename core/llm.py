@@ -4,7 +4,7 @@ from core.config import settings
 
 
 llm = ChatOpenAI(
+    api_key=settings.OPENAI_API_KEY,
     model=settings.MODEL,
     temperature=settings.TEMPERATURE,
-    api_key=settings.OPENAI_API_KEY,
 )

@@ -1,17 +1,11 @@
-import json
-import os
+from datetime import datetime
 
 
-def load_json(path):
+def current_time():
 
-    if not os.path.exists(path):
-        return {}
-
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return datetime.now().strftime("%d-%m-%Y %I:%M:%S %p")
 
 
-def save_json(path, data):
+def separator(length=70):
 
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4)
+    return "=" * length

@@ -1,40 +1,76 @@
 from crewai import Crew, Process
 
-from agents.coordinator import coordinator
 from agents.assistant import assistant
 from agents.researcher import researcher
+from agents.entry_agent import entry_agent
 
-from tasks.coordinator_task import build_coordinator_task
 from tasks.assistant_task import build_assistant_task
 from tasks.research_task import build_research_task
+from tasks.entry_task import build_entry_task
 
 
 class CrewBuilder:
 
-    def build(self, question: str, history: list):
+    @staticmethod
+    def build(
+        question: str,
+        context: str
+    ):
 
-        coordinator_task = build_coordinator_task(question)
-
-        research_task = build_research_task(question)
+        # ----------------------------
+        # Assistant Task
+        # ----------------------------
 
         assistant_task = build_assistant_task(
             question=question,
-            history=history
+            context=context
         )
 
-        crew = Crew(
+        # ----------------------------
+        # Research Task
+        # ----------------------------
+
+        research_task = build_research_task(
+            question=question
+        )
+
+        research_task.context = [
+            assistant_task
+        ]
+
+        # ----------------------------
+        # Entry Task
+        # ----------------------------
+
+        entry_task = build_entry_task()
+
+        entry_task.context = [
+            assistant_task,
+            research_task
+        ]
+
+        # ----------------------------
+        # Crew
+        # ----------------------------
+
+        return Crew(
+
             agents=[
-                coordinator,
+                assistant,
                 researcher,
-                assistant
+                entry_agent
             ],
-            tasks=[
-                coordinator_task,
-                research_task,
-                assistant_task
-            ],
-            process=Process.sequential,
-            verbose=True
-        )
 
-        return crew
+            tasks=[
+                assistant_task,
+                research_task,
+                entry_task
+            ],
+
+            process=Process.sequential,
+
+            verbose=True,
+
+            memory=False
+
+        )

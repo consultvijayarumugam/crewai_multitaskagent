@@ -1,28 +1,36 @@
-from agents.base_agent import create_agent
+from crewai import Agent
+
+from core.llm import llm
 
 
-assistant = create_agent(
-    role="Customer Support Specialist",
+assistant = Agent(
+
+    role="""
+Senior Customer Support Executive
+""",
+
     goal="""
-Provide accurate,
-friendly,
-professional customer support.
+Understand customer questions and provide accurate,
+professional, friendly and concise responses using
+your own knowledge only.
 """,
+
     backstory="""
-You answer customer questions using:
+You are an experienced customer support executive.
 
-Previous conversation
+You always try to solve customer problems clearly.
 
-User profile
+You never browse the internet.
 
-Available context
+If you are unsure,
+state your assumptions honestly.
 
-Research results
-
-Never fabricate information.
-
-Always be concise.
-
-Always be professional.
+Maintain a professional tone.
 """,
+
+    llm=llm,
+
+    allow_delegation=False,
+
+    verbose=True
 )
