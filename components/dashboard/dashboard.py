@@ -1,6 +1,10 @@
 import streamlit as st
 
 from components.cards.stat_card import render_stat_card
+from services.memory_service import MemoryService
+
+
+memory_service = MemoryService()
 
 
 def render_dashboard():
@@ -11,11 +15,19 @@ def render_dashboard():
     if "research_calls" not in st.session_state:
         st.session_state.research_calls = 0
 
-    if "memory_updates" not in st.session_state:
-        st.session_state.memory_updates = 0
-
     if "avg_time" not in st.session_state:
         st.session_state.avg_time = 0.0
+
+    username = st.session_state.get("username", "vijay").lower()
+
+    profile = memory_service.get_profile(username)
+    facts = memory_service.get_facts(username)
+
+    memory_count = len(facts)
+
+    for value in profile.values():
+        if value:
+            memory_count += 1
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -36,7 +48,7 @@ def render_dashboard():
     with c3:
         render_stat_card(
             "Memory",
-            st.session_state.memory_updates,
+            memory_count,
             "🧠"
         )
 

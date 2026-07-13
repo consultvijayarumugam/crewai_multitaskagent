@@ -1,13 +1,32 @@
-venv/
-.env
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
 
-storage/memory.json
-storage/answers.txt
+# Virtual environments
+venv/
+.venv/
+env/
 
-.DS_Store
-.idea/
+# Environment variables
+.env
+
+# IDE
 .vscode/
+.idea/
 
+# macOS
+.DS_Store
+
+# Runtime storage
+storage/answers.txt
+storage/memory.json
+
+# Streamlit cache
+.streamlit/
+
+# Logs
+*.log
+
+# Zip files
 *.zip
